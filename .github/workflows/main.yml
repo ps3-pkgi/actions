@@ -19,7 +19,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        repository: ps3-pkg1/ps3-linux
+        repository: ps3-pkgi/ps3-linux
         fetch-depth: 1
         ref: ${{ matrix.branch }}
 
