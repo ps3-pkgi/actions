@@ -50,12 +50,12 @@ jobs:
     - name: Install ya2d
       working-directory: ya2d_ps3/libya2d
       run: |
-        sudo make install
+        make install
 
     - name: Install mini18n
       working-directory: mini18n
       run: |
-        sudo make install
+        make install
     - name: Build
       continue-on-error: true
       run: make ps3_defconfig -j4 && make -j4
