@@ -61,6 +61,6 @@ jobs:
       run: make ps3_defconfig -j4 && make -j4
       env:
         ARCH: powerpc
-        CROSS_COMPILE: "ccache powerpc64le-linux-gnueabi-"
+        CROSS_COMPILE: "powerpc64le-linux-gnueabi-"
         O: out
     - run: df -h
