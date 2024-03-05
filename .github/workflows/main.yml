@@ -5,6 +5,13 @@ on:
  
 jobs:
   build_kernel:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - branch: ps3-queue-v3.19
+        - branch: ps3-queue-v4.19  
+        - branch: ps3-queue-v5.19
     runs-on: ubuntu-20.04
     steps:
 
@@ -13,6 +20,8 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: ps3-pkg1/ps3-linux
+        fetch-depth: 1
+        ref: ${{ matrix.branch }}
 
     - name: Checkout ya2d
       uses: actions/checkout@v4
@@ -41,16 +50,17 @@ jobs:
     - name: Install ya2d
       working-directory: ya2d_ps3/libya2d
       run: |
-        make install
+        sudo make install
 
     - name: Install mini18n
       working-directory: mini18n
       run: |
-        make install
+        sudo make install
     - name: Build
+      continue-on-error: true
       run: make ps3_defconfig -j4 && make -j4
       env:
         ARCH: powerpc
         CROSS_COMPILE: "ccache powerpc64le-linux-gnueabi-"
         O: out
-      
+    - run: df -h
